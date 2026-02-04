@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+    /* Black & White Theme - Light Mode */
+    --color-background: oklch(1 0 0);
+    --color-foreground: oklch(0.145 0 0);
+    --color-card: oklch(1 0 0);
+    --color-card-foreground: oklch(0.145 0 0);
+    --color-popover: oklch(1 0 0);
+    --color-popover-foreground: oklch(0.145 0 0);
+    --color-primary: oklch(0.205 0 0);
+    --color-primary-foreground: oklch(0.985 0 0);
+    --color-secondary: oklch(0.97 0 0);
+    --color-secondary-foreground: oklch(0.205 0 0);
+    --color-muted: oklch(0.97 0 0);
+    --color-muted-foreground: oklch(0.455 0 0);
+    --color-accent: oklch(0.97 0 0);
+    --color-accent-foreground: oklch(0.205 0 0);
+    --color-destructive: oklch(0.602 0.176 25.331);
+    --color-destructive-foreground: oklch(0.985 0 0);
+    --color-border: oklch(0.898 0 0);
+    --color-input: oklch(0.898 0 0);
+    --color-ring: oklch(0.145 0 0);
+
+    --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    @theme {
+        /* Black & White Theme - Dark Mode */
+        --color-background: oklch(0.145 0 0);
+        --color-foreground: oklch(0.985 0 0);
+        --color-card: oklch(0.145 0 0);
+        --color-card-foreground: oklch(0.985 0 0);
+        --color-popover: oklch(0.145 0 0);
+        --color-popover-foreground: oklch(0.985 0 0);
+        --color-primary: oklch(0.985 0 0);
+        --color-primary-foreground: oklch(0.205 0 0);
+        --color-secondary: oklch(0.269 0 0);
+        --color-secondary-foreground: oklch(0.985 0 0);
+        --color-muted: oklch(0.269 0 0);
+        --color-muted-foreground: oklch(0.655 0 0);
+        --color-accent: oklch(0.269 0 0);
+        --color-accent-foreground: oklch(0.985 0 0);
+        --color-destructive: oklch(0.402 0.176 25.331);
+        --color-destructive-foreground: oklch(0.985 0 0);
+        --color-border: oklch(0.269 0 0);
+        --color-input: oklch(0.269 0 0);
+        --color-ring: oklch(0.831 0 0);
+    }
+}
+
+/* Base Styles */
+* {
+    border-color: var(--color-border);
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom Scrollbars */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background-color: var(--color-muted);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklch, var(--color-muted-foreground) 30%, transparent);
+    border-radius: 9999px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--color-muted-foreground) 50%, transparent);
+}
+
+.scrollbar-none {
+    scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+/* Animations - Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+code {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.875rem;
+}
+
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Focus states */
+.focus-ring {
+    outline: none;
+}
+
+.focus-ring:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+}
+
+/* Content visibility */
+.content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+}
+
+/* Touch targets */
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Gradient text */
+.gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, var(--color-foreground), var(--color-muted-foreground));
+}
